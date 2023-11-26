@@ -22,18 +22,18 @@
 // };
 
 const bmiCalculator = (height: number, weight: number): string => {
-  const bmi: number = weight / ((height * 2) / 100);
+  const bmi: number = weight / ((height / 100) * (height / 100));
   if (bmi < 16.0) {
     return 'Underweight (Severe thinness)';
-  } else if (16.0 < bmi && bmi < 16.9) {
+  } else if (16.0 <= bmi && bmi <= 16.9) {
     return 'Underweight (Moderate thinness)';
-  } else if (17.0 < bmi && bmi < 18.4) {
+  } else if (17.0 <= bmi && bmi <= 18.4) {
     return 'Underweight (Mild thinness)';
-  } else if (18.5 < bmi && bmi < 24.9) {
+  } else if (18.5 <= bmi && bmi <= 24.9) {
     return 'Normal (healthy weight)';
-  } else if (25.0 < bmi && bmi < 29.9) {
+  } else if (25.0 <= bmi && bmi <= 29.9) {
     return 'Overweight (Pre-obese)';
-  } else if (bmi > 30) {
+  } else if (bmi >= 30) {
     return 'Stop eating, fatty!';
   }
   return 'Eat more';
@@ -41,10 +41,6 @@ const bmiCalculator = (height: number, weight: number): string => {
 
 try {
   console.log(bmiCalculator(180, 74));
-} catch (error: unknown) {
-  let errorMessage = 'Something went wrong: ';
-  if (error instanceof Error) {
-    errorMessage += error.message;
-  }
-  console.log(errorMessage);
+} catch (error) {
+  console.error('Something went wrong:', error);
 }
