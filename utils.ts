@@ -1,6 +1,7 @@
 export const parseArguments = <T>(args: string[]): T => {
-  if (args.length < 4) throw new Error('Not enough arguments');
-  //   if (args.length > 4) throw new Error('Too many arguments');
+  if (args.length < 4) {
+    throw new Error('Not enough arguments');
+  }
   if (args.length === 4) {
     if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
       return {
@@ -23,4 +24,5 @@ export const parseArguments = <T>(args: string[]): T => {
       throw new Error('Some or all of the provided values were not numbers!');
     }
   }
+  return undefined as T;
 };
