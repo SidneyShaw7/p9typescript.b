@@ -1,11 +1,11 @@
 import { parseArguments } from './utils';
 
-interface DividedValues {
+interface Values {
   value1: number;
   value2: number;
 }
 
-const bmiCalculator = (height: number, weight: number): string => {
+export const bmiCalculator = (height: number, weight: number): string => {
   const bmi: number = weight / ((height / 100) * (height / 100));
   if (bmi < 16.0) {
     return 'Underweight (Severe thinness)';
@@ -24,7 +24,7 @@ const bmiCalculator = (height: number, weight: number): string => {
 };
 
 try {
-  const { value1, value2 } = parseArguments<DividedValues>(process.argv);
+  const { value1, value2 } = parseArguments<Values>(process.argv);
   console.log(bmiCalculator(value1, value2));
 } catch (error: unknown) {
   let errorMessage = 'Something went wrong: ';
