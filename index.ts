@@ -43,10 +43,6 @@ app.post('/exercises', (req, res) => {
     Array.isArray(value2) &&
     value2.every((item) => typeof item === 'number')
   ) {
-    console.log(value1, value2);
-    console.log(req.body);
-    const numberValue2 = value2.every((item) => Number(item));
-    console.log(numberValue2);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const result = calculateExercises(value1, value2);
     res.send({ result });
