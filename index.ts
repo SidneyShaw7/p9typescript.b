@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import express from 'express';
 import { bmiCalculator } from './bmiCalculator';
 import { calculateExercises } from './exerciseCalculator';
@@ -38,31 +36,26 @@ app.get('/bmi', (req, res) => {
 });
 
 app.post('/exercises', (req, res) => {
-  const { value1, value2 } = req.body;
+  const value1 = req.body.target;
+  const value2 = req.body.daily_exercises;
   if (
     typeof value1 === 'number' &&
     Array.isArray(value2) &&
     value2.every((item) => typeof item === 'number')
   ) {
     console.log(value1, value2);
-    res.json(value1);
-
+    console.log(req.body);
+    const numberValue2 = value2.every((item) => Number(item));
+    console.log(numberValue2);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const result = calculateExercises(value1, value2);
     res.send({ result });
   } else if (!value1 || !value2) {
     res.status(400).send('parameters missing');
-    console.log(value1, value2);
-  } else if (
-    !parseFloat(value1) ||
-    !value2.map((value: string) => parseFloat(value))
-  ) {
-    res.status(400).send('wrong parameters');
-    console.log(value1, value2);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
+  } else if (Number(value1) || value2.every((v: any) => Number(v))) {
+    res.status(400).send('parameters missing');
   }
-  // const target = parseFloat(value1);
-  // const dailyExercises = value2.map((value: any) => Number(value));
-  // const result = calculateExercises(target, dailyExercises);
-  // res.send({ result });
 });
 
 const PORT = 3002;
